@@ -14,20 +14,19 @@ import org.springframework.stereotype.Service;
 public class CustomUserDetailsService implements UserDetailsService {
 
     private Map<String, String> accountDetails;
-
     @PostConstruct
     public void init() {
         // this data would typically be retrieved from a database
         this.accountDetails = new TreeMap<>();
-        this.accountDetails.put("ted", "$2a$06$rtacOjuBuSlhnqMO2GKxW.Bs8J6KI0kYjw/gtF0bfErYgFyNTZRDm");
+        this.accountDetails.put("matti", "password");
+        this.accountDetails.put("teppo","password123");
+        this.accountDetails.put("seppo","123");    
     }
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         if (!this.accountDetails.containsKey(username)) {
             throw new UsernameNotFoundException("No such user: " + username);
         }
-
         return new org.springframework.security.core.userdetails.User(
                 username,
                 this.accountDetails.get(username),
